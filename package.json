@@ -1,0 +1,20 @@
+{
+  "description": "A Browserify transform to bundle CSS files.  Require returns a hash of BEM modifiers to class names",
+  "author": {
+    "name": "George Magiros",
+    "url": "https://github.com/roseengineering"
+  },
+  "dependencies": {
+    "css": "^2.2.1",
+    "through2": "^2.0.1"
+  },
+  "license": "MIT",
+  "main": "./bemcssify.js",
+  "name": "bemcssify",
+  "readme": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roseengineering/bemcssify.git"
+  },
+  "version": "0.0.0"
+}

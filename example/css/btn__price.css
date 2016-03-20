@@ -1,0 +1,13 @@
+/* Element */
+.btn__price {
+  background-color: white;
+  color: #fff;
+  padding-right: 12px;
+  padding-left: 12px;
+  margin-right: -10px; /* realign button text padding */
+  font-weight: 600;
+  background-color: #333;
+  opacity: .4;
+  border-radius: 5px 0 0 5px;
+}
+
