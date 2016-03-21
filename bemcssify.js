@@ -4,7 +4,9 @@ var through = require('through2');
 var css = require('css');
 var fs = require('fs');
 
-function toCamel(name) {
+var fd;
+
+function toCamelCase(name) {
     return name.replace(/([a-z])-([a-z])/g, function(str, m1, m2) {
         return m1 + m2.toUpperCase();
     });
@@ -19,8 +21,6 @@ var transform = function(rules, nobase){
                 var group = name.split('.');
                 if (group.length !== 2 || group[0] || !group[1]) return;
                 name = group[1];
-
-                // we now have the class name
                 group = name.split('--');
                 var base = group[0];
                 var modifier = group[1];
@@ -31,18 +31,13 @@ var transform = function(rules, nobase){
                     }).join(' ');
                 }
                 if (!nobase) name = base + ' ' + name;
-                ob[toCamel(modifier)] = name;
+                ob[toCamelCase(modifier)] = name;
             });
         }
     });
+    return ob;
 
-    var str = '{\n';
-    for (var key in ob) str += '  "' + key + '": "' + ob[key] + '",\n';
-    str += '}';
-    return str;
 };
-
-var fd;
 
 module.exports = function(file, opts) {
     var ext = '.css',
@@ -61,8 +56,11 @@ module.exports = function(file, opts) {
                 fs.appendFileSync(fd, buf);
             }
             this.push('module.exports = ');
-            var data = css.parse(buf.toString());
-            this.push(transform(data.stylesheet.rules, opts.n));
+            var ob = css.parse(buf.toString());
+            ob = transform(ob.stylesheet.rules, opts.n);
+            this.push('{\n');
+            for (var key in ob) this.push('  "' + key + '": "' + ob[key] + '",\n');
+            this.push('}');
         }
         cb();
     })
