@@ -59,6 +59,15 @@ will be placed on the return object as:
    
 See the directory "example" for a sample browserify build.
 
+Installation
+=============
+
+To install from github.com you can use:
+
+```
+    $ npm install roseengineering/bemcssify
+```
+
 Examples
 ===========
 
