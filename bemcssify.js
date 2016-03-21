@@ -15,29 +15,23 @@ var transform = function(rules, nobase){
     rules.forEach(function(rule){
         if (rule.type === 'rule'){
             rule.selectors.forEach(function(name){
-                var group;
-                if (/[ *+>~[#]/.test(name)) return;
-                group = name.split('.');
+                if (/[ :*+>~[#]/.test(name)) return;
+                var group = name.split('.');
                 if (group.length !== 2 || group[0] || !group[1]) return;
                 name = group[1];
 
                 // we now have the class name
-                var i, base, modifier, pseudo = '';
-                if ((i = name.indexOf(':')) > 0) {
-                    pseudo = name.substr(i);
-                    name = name.substr(0, i);
-                }
                 group = name.split('--');
-                base = group[0];
-                modifier = group[1];
+                var base = group[0];
+                var modifier = group[1];
                 if (!modifier) return;
                 if (group.length > 2) {
                     name = group.splice(2).map(function(n){
-                        return base + '--' + n + pseudo;
+                        return base + '--' + n;
                     }).join(' ');
                 }
-                if (!nobase) name = base + pseudo + ' ' + name;
-                ob[toCamel(modifier) + pseudo] = name;
+                if (!nobase) name = base + ' ' + name;
+                ob[toCamel(modifier)] = name;
             });
         }
     });
