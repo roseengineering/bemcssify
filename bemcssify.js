@@ -36,7 +36,6 @@ var transform = function(rules, nobase){
         }
     });
     return ob;
-
 };
 
 module.exports = function(file, opts) {
