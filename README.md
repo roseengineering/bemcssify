@@ -9,7 +9,10 @@ Each time you require a unique CSS file using this transform, the contents of th
 file are appended to the CSS output file.  The name of this output file is passed
 as an argument to the transform.  To bundle your CSS into one 
 file use the '-o outfile' option.  If this argument is not given, 
-no CSS will be bundled.  
+no CSS will be bundled together.  
+
+If the '-i' option is given, only the name of the css file that would of been
+bundled is written instead to the output file. 
 
 Upon being required, the transform will parse 
 the CSS file and return a javascript object of the BEM CSS modifiers contained

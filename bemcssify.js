@@ -36,6 +36,7 @@ var transform = function(rules, nobase){
         }
     });
     return ob;
+
 };
 
 module.exports = function(file, opts) {
@@ -52,12 +53,15 @@ module.exports = function(file, opts) {
         } else {
             if (opts.o) {
                 if (!fd) fd = fs.openSync(opts.o, 'w');
-                fs.appendFileSync(fd, buf);
+                if (opts.i) {
+                    fs.appendFileSync(fd, file + '\n');
+                } else {
+                    fs.appendFileSync(fd, buf);
+                }
             }
-            this.push('module.exports = ');
             var ob = css.parse(buf.toString());
             ob = transform(ob.stylesheet.rules, opts.n);
-            this.push('{\n');
+            this.push('module.exports = {\n');
             for (var key in ob) this.push('  "' + key + '": "' + ob[key] + '",\n');
             this.push('}');
         }
