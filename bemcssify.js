@@ -43,6 +43,8 @@ module.exports = function(file, opts) {
     var ext = '.css',
         list = [];
 
+    if (opts.o && !fd) fd = fs.openSync(opts.o, 'w');
+
     return through(function (chunk, enc, cb) {
         list.push(chunk);
         cb()
@@ -52,7 +54,6 @@ module.exports = function(file, opts) {
             this.push(buf);
         } else {
             if (opts.o) {
-                if (!fd) fd = fs.openSync(opts.o, 'w');
                 if (opts.i) {
                     fs.appendFileSync(fd, file + '\n');
                 } else {
