@@ -5,62 +5,39 @@ bemcssify
 
 Use this browserify transform to bundle your CSS files together.
 
-Each time you require a unique CSS file using this transform, the contents of the 
-file are appended to the CSS output file.  The name of which is passed
-as an argument to the transform.  To bundle your CSS into one 
-file use the '-o outfile' option.  If this argument is not given, 
-no CSS will be bundled together.  
+For every CSS file required with this transform, the contents of the 
+file are appended to the CSS output file given by the '-o outfile' 
+tranform option.   If this argument is not given, no CSS will be bundled together.  
 
-If the '-i' option is given, only the name of the css file that would of been
-bundled is written instead to the output file. 
+If the '-i' option is given, the names of the css files required,
+instead of their contents, are written to the '-o' output file. 
 
-Upon being required, the transform will parse 
-the CSS file and return a javascript object of the BEM CSS modifiers contained
-within.  Each BEM modifier that is found is first camel cased and then presented as a property
-of the returned object.  The value of the property is the full BEM class name 
-concatenated with the non-modifier version of the BEM class name.
+For each CSS file required the transform will parse 
+the file and return a javascript object of the BEM blocks, 
+including modifiers, contained inside.  Each BEM block or modifier found 
+is camel cased and before being added to the returned object.  
 
-For example the CSS rule,
+The value of the property is the full BEM class name 
+concatenated with the non-modifier version of the BEM name.  
+The '--' modifier  separator will be replace with '__'.
+
+So the CSS rule,
 
 ```
     .btn__text--big {}
 ```
 
-will be returned by require as:
+will be returned by require on the object as:
 
 ```
     {
-        big: "btn__text btn__text--big",
+        text__big: "btn__text btn__text--big",
         ...
     }
 ```
 
-The inclusion of the non-modifier name can be disabled
-with the '-n' argument.
-
-The value of a modifier property can also be "composed".
-
-If the transform finds a "multi-modifier" BEM class name,
-the first modifier found will be considered the modifier property. 
-While the second and subsequent modifiers will compose the 
-value of the property.
-
-So the CSS rule,
-
-```
-    .btn--big-green--big--green {}
-```
-
-will be placed on the return object as:
-
-```
-    {
-        bigGreen: "btn btn--big btn--green",
-        ...
-    }
-```
-   
-See the directory "example" for a sample browserify build.
+The non-modifier BEM class name (btn__text in the above example) 
+can be excluded using the '-n' argument.
 
 Installation
 =============
