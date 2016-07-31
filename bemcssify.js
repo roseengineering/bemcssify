@@ -16,22 +16,27 @@ var transform = function(rules, nobase){
     var ob = {};
     rules.forEach(function(rule){
         if (rule.type === 'rule'){
-            rule.selectors.forEach(function(name){
-                if (/[ :*+>~[#]/.test(name)) return;
-                var group = name.split('.');
-                if (group.length !== 2 || group[0] || !group[1]) return;
-                name = group[1];
-                group = name.split('--');
-                var base = group[0];
-                var modifier = group[1];
-                if (!modifier) return;
-                if (group.length > 2) {
-                    name = group.splice(2).map(function(n){
-                        return base + '--' + n;
-                    }).join(' ');
-                }
-                if (!nobase) name = base + ' ' + name;
-                ob[toCamelCase(modifier)] = name;
+            rule.selectors.forEach(function(sel){
+                var m, name, base, modifier, key;
+                if (/[ :*+>~[#]/.test(sel)) return;
+
+                // get class name
+                m = sel.split('.');
+                if (m.length !== 2) return;
+                name = m[1];
+
+                // get key
+                m = name.split('__');
+                if (m.length !== 2) return;
+                key = m[1];
+
+                // get block
+                m = name.split('--');
+                base = m[0];
+                modifier = m[1];
+
+                if (!nobase && modifier) sel += '.' + base;
+                ob[toCamelCase(key.replace('--', '__'))] = sel;
             });
         }
     });
