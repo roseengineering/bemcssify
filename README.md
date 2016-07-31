@@ -9,7 +9,7 @@ For every CSS file required with this transform, the contents of the
 file are appended to the output file given by the '-o outfile' 
 tranform option.   If this argument is not given, no CSS will be bundled together.  
 
-If the '-i' option is given, only the names of the css files required
+If the '-i' option is given, only the names of the CSS files required
 are written to the '-o' output file. 
 
 For each CSS file required the transform will parse 
