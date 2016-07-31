@@ -6,7 +6,7 @@ bemcssify
 Use this browserify transform to bundle your CSS files together.
 
 For every CSS file required with this transform, the contents of the 
-file are appended to the CSS output file given by the '-o outfile' 
+file are appended to the output file given by the '-o outfile' 
 tranform option.   If this argument is not given, no CSS will be bundled together.  
 
 If the '-i' option is given, only the names of the css files required
