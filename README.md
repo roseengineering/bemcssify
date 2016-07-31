@@ -31,7 +31,7 @@ will be returned by require on the object as:
 
 ```
     {
-        text__big: "btn__text btn__text--big",
+        text__big: ".btn__text.btn__text--big",
         ...
     }
 ```
