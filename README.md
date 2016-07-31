@@ -6,19 +6,19 @@ bemcssify
 Use this browserify transform to bundle your CSS files together.
 
 For every CSS file required with this transform, the contents of the 
-file are appended to the output file given by the '-o outfile' 
+file are appended once to the output file given by the '-o outfile' 
 tranform option.   If this argument is not given, no CSS will be bundled together.  
 
 If the '-i' option is given, only the names of the CSS files required
 are written to the '-o' output file. 
 
-For each CSS file required the transform will parse 
-the file and return a javascript object of the BEM classes
-contained inside.  
+For every CSS file required the transform will also parse 
+the file and return a javascript object of all the BEM classes
+contained within.  
 
-The value of each property added is the full BEM class name 
-concatenated with the non-modifier version of the BEM class name
-in selector form.
+The value of each property added is the full BEM class name of a selector 
+concatenated with the non-modifier version of the BEM class name.  The
+value is in selector form.
 
 The key of each property added is the BEM class name camel cased but
 without the base.  The '--' separator is replaced with '__'.
