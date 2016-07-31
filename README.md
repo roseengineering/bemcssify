@@ -9,22 +9,24 @@ For every CSS file required with this transform, the contents of the
 file are appended to the CSS output file given by the '-o outfile' 
 tranform option.   If this argument is not given, no CSS will be bundled together.  
 
-If the '-i' option is given, the names of the css files required,
-instead of their contents, are written to the '-o' output file. 
+If the '-i' option is given, only the names of the css files required
+are written to the '-o' output file. 
 
 For each CSS file required the transform will parse 
-the file and return a javascript object of the BEM blocks, 
-including modifiers, contained inside.  Each BEM block or modifier found 
-is camel cased and before being added to the returned object.  
+the file and return a javascript object of the BEM classes
+contained inside.  
 
-The value of the property is the full BEM class name 
-concatenated with the non-modifier version of the BEM name.  
-The '--' modifier  separator will be replace with '__'.
+The value of each property added is the full BEM class name 
+concatenated with the non-modifier version of the BEM class name
+in selector form.
 
-So the CSS rule,
+The key of each property added is the BEM class name camel cased but
+without the base.  The '--' separator is replaced with '__'.
+
+So for example the CSS rule,
 
 ```
-    .btn__text--big {}
+    .btn__text--big { /* .. */ }
 ```
 
 will be returned by require on the object as:
